@@ -40,3 +40,20 @@ Shows the data coming from backend via websockets.
 * [react-router](https://facebook.github.io/flux/)
 * [react-router-bootstrap](https://facebook.github.io/flux/)
 * [react-stockcharts](https://facebook.github.io/flux/)
+
+## Building ##
+
+### Backend ###
+
+#### Required libraries ####
+```go get github.com/gin-gonic/gin```
+
+```go get github.com/gorilla/websocket```
+
+```go get github.com/bitly/go-nsq```
+
+```go get github.com/ezeql/go-randomdata```
+
+```go get github.com/VividCortex/ewma```
+
+```go get github.com/shopspring/decimal```
