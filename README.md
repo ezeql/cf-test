@@ -29,6 +29,15 @@ Shows the data coming from backend via websockets.
 
 ```go get github.com/shopspring/decimal```
 
+FIXME
+
+### frontend ###
+
+```npm install```
+
+```grunt serve``` or ```grunt build```
+
+
 ##  List of used libraries ##
 
 ### Backend ###
