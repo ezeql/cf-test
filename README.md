@@ -16,7 +16,14 @@ Shows the data coming from backend via websockets.
 
 ### Backend ###
 
-#### Required libraries ####
+#### Required Software #####
+
+* [golang](https://golang.org/) 
+* [nsq](http://nsq.io/) 
+* [redis](redis.io/) 
+
+
+#### Required Go libraries ####
 ```go get github.com/gin-gonic/gin```
 
 ```go get github.com/gorilla/websocket```
@@ -32,6 +39,11 @@ Shows the data coming from backend via websockets.
 FIXME
 
 ### frontend ###
+
+#### softwate ####
+* [node and npm](https://nodejs.org/) 
+* [grunt](http://gruntjs.com/) 
+
 
 ```npm install```
 
