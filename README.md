@@ -59,7 +59,7 @@ FIXME
 * [gin-gonic/gin](https://github.com/gin-gonic/gin) http framework
 * [ezeql/go-randomdata](github.com/ezeql/go-randomdata) 
 * [shopspring/decimal](https://github.com/shopspring/decimal) Money handling
-* [VividCortex/ewma](https://github.com/VividCortex/ewma) 
+* [garyburd/redigo](github.com/garyburd/redigo/redis) redis go client
 
 ### Frontend ###
 
