@@ -25,7 +25,7 @@ Shows the data coming from backend via websockets.
 
 ```go get github.com/ezeql/go-randomdata```
 
-```go get github.com/VividCortex/ewma```
+```go get github.com/garyburd/redigo/redis```
 
 ```go get github.com/shopspring/decimal```
 
