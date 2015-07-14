@@ -2,14 +2,13 @@ package main
 
 import (
 	"log"
-	"math"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 
-	"github.com/VividCortex/ewma"
 	"github.com/bitly/go-nsq"
+	"github.com/garyburd/redigo/redis"
 )
 
 func main() {
@@ -27,9 +26,17 @@ func main() {
 		return nil
 	}), 2)
 
-	//PRICE ANALYSYS FOR EUR/USD
-	ewmaEURUSD := ewma.NewMovingAverage()
-	var delta float64 = 0
+	redisPool := redis.NewPool(func() (redis.Conn, error) {
+		c, err := redis.Dial("tcp", "127.0.0.1:6379")
+
+		if err != nil {
+			return nil, err
+		}
+
+		return c, err
+	}, 10)
+
+	defer redisPool.Close()
 
 	statsConsumer.AddConcurrentHandlers(nsq.HandlerFunc(func(message *nsq.Message) error {
 
@@ -38,26 +45,13 @@ func main() {
 			log.Println("error decoding transaction from nsq msg")
 			return err
 		}
+		conn := redisPool.Get()
+		conn.Send("ZINCRBY", "transactions:bycountry", 1, transaction.OriginatingCountry)
+		conn.Send("ZINCRBY", "transactions:bycurrtocurr", 1, transaction.CurrencyFrom+":"+transaction.CurrencyTo)
+		conn.Flush()
 
-		if transaction.CurrencyFrom == "EUR" && transaction.CurrencyTo == "USD" {
-			current := ewmaEURUSD.Value()
-			newValue, _ := transaction.Rate.Float64()
-			ewmaEURUSD.Add(newValue)
-			if current != 0 && math.Abs(newValue-current) > delta {
-				if newValue > current {
-					//					h.broadcast <- []byte("{""message"":""trend"",""data"":{""from"":""EUR"",""to"":""USD"",""trend:""rising""}}"""
-					log.Println("price is rising")
-				} else {
-					// h.broadcast <- []byte("{'message':'trend','data':{'from':'EUR','to':'USD','trend:'falling'}}")
-					log.Println("price is falling")
-				}
-			} else {
-				// h.broadcast <- []byte("{'message':'trend','data':{'from':'EUR','to':'USD','trend:'stable'}}")
-				log.Println("price is stable")
-			}
-
-		}
 		message.Finish()
+		conn.Close()
 		return nil
 	}), 2)
 
@@ -74,11 +68,9 @@ func main() {
 		log.Println("Could not connect")
 		log.Println(err)
 	} else {
-		http.HandleFunc("/ws", serveWs)
 		go h.run()
+		http.HandleFunc("/ws", serveWs)
 		go http.ListenAndServe(":8090", nil)
-		//TODO: add grafecul shutdown lib for http server
 		<-termChan
-
 	}
 }
