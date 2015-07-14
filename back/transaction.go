@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"errors"
-	"log"
 	"time"
 
 	"github.com/shopspring/decimal"
@@ -57,7 +56,6 @@ func (t *Transaction) Validate() error {
 		return errors.New("OriginatingCountry must be a valid country")
 	}
 	if !t.AmountSell.Mul(t.Rate).Equals(t.AmountBuy) {
-		log.Println(t.Rate, t.AmountSell, t.AmountBuy)
 		return errors.New("AmountSell, AmountBuy and Rate do not match")
 	}
 	return nil

@@ -22,7 +22,7 @@ func TestJsonMarshaling(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	err = transaction.validate()
+	err = transaction.Validate()
 	if err != nil {
 		t.Error(err)
 	}
