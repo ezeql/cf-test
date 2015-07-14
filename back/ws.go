@@ -70,7 +70,7 @@ func main() {
 	} else {
 		go h.run()
 		http.HandleFunc("/ws", serveWs)
-		go http.ListenAndServe(":8090", nil)
+		http.ListenAndServe(":8090", nil)
 		<-termChan
 	}
 }
