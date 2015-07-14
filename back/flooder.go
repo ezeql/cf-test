@@ -26,12 +26,12 @@ func main() {
 	log.Println("Flooding with transactions... =D")
 	initialDate, _ := time.Parse("2-JAN-06 15:04:05", "1-JAN-14 10:00:00")
 
-	for i := 0; i < 1; i++ {
+	for i := 0; i < 5; i++ {
 		go func() {
 			for {
 				id := fmt.Sprintf("%v", rand.Intn(10000))
-				from := "EUR" //randomdata.Currency()
-				to := "USD"   //randomdata.Currency()
+				from := randomdata.Currency()
+				to := randomdata.Currency()
 				rate := decimal.NewFromFloat(randomdata.Decimal(1, 2, 2))
 				sell := decimal.NewFromFloat(randomdata.Decimal(50, 1000, 2))
 				buy := rate.Mul(sell)
@@ -58,7 +58,7 @@ func main() {
 				client.Do(req)
 				cant++
 
-				time.Sleep(time.Millisecond * time.Duration(500))
+				time.Sleep(time.Millisecond * time.Duration(3000))
 			}
 		}()
 	}
