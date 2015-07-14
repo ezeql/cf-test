@@ -2,15 +2,19 @@
 
 ## Description ##
 
-### Consumer ###
+### [Consumer](https://github.com/ezeql/cf-test/blob/master/back/consumer.go)  ###
 A Go http server listen for transactions, parses and validates them and then are pushed into a nsq messaging queue instance.
 
-### Processor ###
-Listen to determinate nsq topics and procceses the messages data for delivering to the frontend. A websockets hub is used in order to mantain a single connection to each client, for all processors involved.
+### [Processor](https://github.com/ezeql/cf-test/blob/master/back/ws.go)  ###
+Listen to determinate nsq topics and procceses the messages data for delivering to the frontend. A websocket hub is used in order to mantain a single connection to each client, for all processors involved.
 
-### Frontend ###
+### [Frontend](https://github.com/ezeql/cf-test/blob/master/front/src/components/main.js)  ###
 Created with React following Flux arquitecture
 Shows the data coming from backend via websockets.
+
+
+### [Flooder](https://github.com/ezeql/cf-test/blob/master/back/flooder.go)  ###
+A small utily for feeding the consumer
 
 ## Building ##
 
