@@ -44,7 +44,7 @@ FIXME
 
 ### frontend ###
 
-#### softwate ####
+#### software ####
 * [node and npm](https://nodejs.org/) 
 * [grunt](http://gruntjs.com/) 
 
